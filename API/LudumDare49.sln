@@ -1,8 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LudumDare49.API", "LudumDare49.API\LudumDare49.API.csproj", "{BD455695-46A8-4446-9EF0-387E1A78911F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD455695-46A8-4446-9EF0-387E1A78911F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD455695-46A8-4446-9EF0-387E1A78911F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD455695-46A8-4446-9EF0-387E1A78911F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD455695-46A8-4446-9EF0-387E1A78911F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
