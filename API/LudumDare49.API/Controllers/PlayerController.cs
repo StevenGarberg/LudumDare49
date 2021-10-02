@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LudumDare49.API.Controllers
 {
+    [ApiController]
+    [Route("player")]
     public class PlayerController : ControllerBase
     {
         [Route("{id}")]
@@ -16,7 +18,7 @@ namespace LudumDare49.API.Controllers
         }
     
         [HttpPost]
-        public async Task<IActionResult> Create(string id, [FromBody] PlayerCreateRequest request)
+        public async Task<IActionResult> Create([FromBody] PlayerCreateRequest request)
         {
             throw new NotImplementedException();
         }
