@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LudumDare49.API.Database;
+using LudumDare49.API.Models;
+using LudumDare49.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +30,11 @@ namespace LudumDare49.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<LudumDare49Context>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("Database")));
+
+            services.AddScoped<PlayerRepository>();
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
