@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using LudumDare49.API.Models;
+using LudumDare49.API.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LudumDare49.API.Controllers
@@ -15,7 +16,7 @@ namespace LudumDare49.API.Controllers
         }
     
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Profile request)
+        public async Task<IActionResult> Create(string id, [FromBody] PlayerCreateRequest request)
         {
             throw new NotImplementedException();
         }
