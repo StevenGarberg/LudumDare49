@@ -1,0 +1,11 @@
+### DATABASES ###
+
+    ludumdare49.api.db:
+        image: postgres:12
+        ports:
+            - "5401:5432"
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=ludumdare49
+        container_name: ludumdare49.api.db
