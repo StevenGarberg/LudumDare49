@@ -7,10 +7,12 @@ namespace LudumDare49.Unity.Behaviours.Windows
 {
     public class StatsWindow : MonoBehaviour
     {
-        [Header("Components")] [SerializeField]
+        [Header("Components")]
+        [SerializeField]
         private Text _gamesWonText;
 
-        [SerializeField] private Text _gamesLostText, _totalGamesText, _firstPlayedAtText;
+        [SerializeField]
+        private Text _gamesLostText, _totalGamesText, _firstPlayedAtText;
 
         private void OnEnable()
         {
