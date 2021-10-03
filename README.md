@@ -3,6 +3,7 @@ Game jam project for Ludum Dare 49 - "Unstable".
 
 ## Links
 - [API Documentation](https://ludumdare49.azurewebsites.net/)
+- [Ludum Dare 49](https://ldjam.com/events/ludum-dare/49)
 
 ## Members
 - [@StevenGarberg](https://github.com/StevenGarberg) | Project Organizer
