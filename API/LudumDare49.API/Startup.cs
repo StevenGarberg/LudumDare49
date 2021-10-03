@@ -27,8 +27,10 @@ namespace LudumDare49.API
                 options.UseNpgsql(Configuration.GetConnectionString("Database")));
 
             services.AddScoped<PlayerRepository>();
+            services.AddScoped<MatchResultsRepository>();
 
             services.AddScoped<PlayerService>();
+            services.AddScoped<MatchResultsService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
