@@ -12,13 +12,19 @@ namespace LudumDare49.API.Controllers
     {
         [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> Get([FromRoute] string id)
+        public async Task<IActionResult> Get([FromRoute] string id, [FromQuery] bool useOwnerId = false)
+        {
+            throw new NotImplementedException();
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
             throw new NotImplementedException();
         }
     
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PlayerCreateRequest request)
+        [HttpPut]
+        public async Task<IActionResult> Upsert([FromBody] Player request)
         {
             throw new NotImplementedException();
         }
