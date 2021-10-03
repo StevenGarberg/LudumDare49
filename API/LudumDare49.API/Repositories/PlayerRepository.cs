@@ -21,6 +21,13 @@ namespace LudumDare49.API.Repositories
             return await _context.Players
                 .FirstOrDefaultAsync(u => u.Id.ToLower() == id);
         }
+        
+        public async Task<Player> GetByOwnerIdAsync(string ownerId)
+        {
+            ownerId = ownerId.ToLower();
+            return await _context.Players
+                .FirstOrDefaultAsync(u => u.OwnerId.ToLower() == ownerId);
+        }
 
         public async Task<Player> CreateAsync(Player player)
         {
