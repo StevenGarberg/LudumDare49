@@ -27,20 +27,21 @@ namespace LudumDare49.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            throw new NotImplementedException();
+            return Ok(await _playerService.GetAsync());
         }
 
         [HttpPut]
         public async Task<IActionResult> Upsert([FromBody] Player request)
         {
-            throw new NotImplementedException();
+            return Ok(await _playerService.UpsertAsync(request));
         }
 
         [Route("{id}")]
         [HttpDelete]
         public async Task<IActionResult> Delete([FromRoute] string id, [FromQuery] bool useOwnerId = false)
         {
-            throw new NotImplementedException();
+            await _playerService.Delete(id, useOwnerId);
+            return NoContent();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LudumDare49.API.Models;
 using LudumDare49.API.Repositories;
@@ -24,40 +25,61 @@ namespace LudumDare49.API.Services
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e);
+                throw;
             }
         }
 
-        public async Task<Player> Upsert(Player request)
+        public async Task<IEnumerable<Player>> GetAsync()
+        {
+            try
+            {
+                return await _playerRepository.GetAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<Player> UpsertAsync(Player request)
         {
             try
             {
                 if (request?.Id != null)
                 {
-                    var playerToUpdate = await _playerRepository.GetByIdAsync(request.Id);
+                    var playerIdCheck = await _playerRepository.GetByIdAsync(request.Id);
 
-                    if (playerToUpdate != null) return await _playerRepository.UpdateAsync(request);
+                    if (playerIdCheck != null)
+                    {
+                        playerIdCheck.Data = request.Data;
+                        return await _playerRepository.UpdateAsync(playerIdCheck);
+                    }
                 }
-                else if (request?.OwnerId != null)
-                {
-                    var playerToUpdate = await _playerRepository.GetByOwnerIdAsync(request.OwnerId);
 
-                    if (playerToUpdate != null) return await _playerRepository.UpdateAsync(request);
-                }
+                if (request?.OwnerId == null) throw new Exception();
                 
-                return request?.OwnerId != null ? await _playerRepository.CreateAsync(request) : null;
+                var ownerIdCheck = await _playerRepository.GetByOwnerIdAsync(request.OwnerId);
+
+                if (ownerIdCheck == null) return await _playerRepository.CreateAsync(request);
+                
+                ownerIdCheck.Data = request.Data;
+                return await _playerRepository.UpdateAsync(ownerIdCheck);
+
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e);
+                throw;
             }
         }
 
-        public async Task Delete(string id, bool userOwnerId = false)
+        public async Task Delete(string id, bool useOwnerId = false)
         {
             try
             {
-                if (userOwnerId)
+                if (useOwnerId)
                 {
                     var playerToDelete = await _playerRepository.GetByOwnerIdAsync(id);
                     await _playerRepository.DeleteAsync(playerToDelete);
@@ -70,7 +92,8 @@ namespace LudumDare49.API.Services
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

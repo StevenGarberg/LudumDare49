@@ -51,11 +51,11 @@ namespace LudumDare49.API.Repositories
         {
             try
             {
-                var storedResource = await _context.Players.FindAsync(player.Id);
+                /*var storedResource = await _context.Players.FindAsync(player.Id);
                 if (player.Version != storedResource.Version)
                 {
                     //throw new ConflictException(storedResource.Version, user.Version);
-                }
+                }*/
 
                 player.UpdatedAt = DateTime.UtcNow;
                 player.Version += 1;
