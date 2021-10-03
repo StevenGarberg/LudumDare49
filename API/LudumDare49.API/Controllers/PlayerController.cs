@@ -21,7 +21,7 @@ namespace LudumDare49.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromRoute] string id, [FromQuery] bool useOwnerId = false)
         {
-           return Ok(await _playerService.GetByIdAsync(id));
+           return Ok(await _playerService.GetByIdAsync(id, useOwnerId));
         }
 
         [HttpGet]
