@@ -1,0 +1,44 @@
+@page "/players"
+@using LudumDare49.Dashboard.Repositories
+@using LudumDare49.API.Models
+
+@inject PlayerRepository PlayerRepository
+@inject NavigationManager NavigationManager
+
+<h1>Players</h1>
+
+@if (players != null)
+{
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                AllowPaging="true" PageSize="20" AllowSorting="true" Data="@players" TItem="Player">
+        <Columns>
+            <RadzenGridColumn TItem="Player" Property="Id" Title="Id" Sortable="false" />
+            <RadzenGridColumn TItem="Player" Property="Data.DisplayName" Title="Display Name" />
+            <RadzenGridColumn TItem="Player" Property="Data.FavoriteColor" Title="Favorite Color" />
+            <RadzenGridColumn TItem="Player" Property="Data.Wins" Title="Wins" />
+            <RadzenGridColumn TItem="Player" Property="Data.Losses" Title="Losses" />
+            <RadzenGridColumn TItem="Player" Property="CreatedAt" Title="Started Playing" />
+        </Columns>
+    </RadzenGrid>
+}
+else
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+
+@code {
+    private List<Player> players;
+
+    protected override async Task OnInitializedAsync()
+    {
+        players = await PlayerRepository.Get();
+    }
+
+    private void View(string id)
+    {
+        NavigationManager.NavigateTo($"/players/{id}");
+    }
+
+}

@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using LudumDare49.Dashboard.Data;
+using LudumDare49.Dashboard.Repositories;
+using RestSharp;
 
 namespace LudumDare49.Dashboard
 {
@@ -22,7 +24,12 @@ namespace LudumDare49.Dashboard
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            
+            services.AddSingleton<IRestClient, RestClient>(x =>
+                new RestClient("https://localhost:3900/")); // TODO: Replace with AppSettings variable
+            
+            services.AddScoped<PlayerRepository>();
+            services.AddScoped<MatchResultsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
