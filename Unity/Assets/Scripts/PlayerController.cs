@@ -28,13 +28,17 @@ public class PlayerController : NetworkBehaviour
         CheckForMovement(KeyCode.W, Vector3.forward);
         CheckForMovement(KeyCode.D, Vector3.right);
         CheckForMovement(KeyCode.A, Vector3.left);
+        CheckForShoot();
     }
     #endregion
 
     #region Server Callbacks
     public override void OnStartLocalPlayer()
     {
-        var color = ColorRandomizer.GetRandomPresetColor();
+        var color = ColorUtility.TryParseHtmlString(PlayerService.Player.Data.FavoriteColor, out var parsedColor)
+            ? parsedColor
+            : ColorRandomizer.GetRandomPresetColor();
+
         CmdSetupPlayer(color);
     }
     #endregion
@@ -45,6 +49,16 @@ public class PlayerController : NetworkBehaviour
     {
         BodyColor = color;
     }
+
+    [Command]
+    public void CmdSpawnBall()
+    {
+        GameObject go = Instantiate(GameManager.Instance.BallPrefab);
+        NetworkServer.Spawn(go);
+    }
+    #endregion
+    
+    #region Client RPC
     #endregion
     
     #region SyncVar Callbacks
@@ -56,11 +70,18 @@ public class PlayerController : NetworkBehaviour
     
     private void CheckForMovement(KeyCode keyCode, Vector3 direction)
     {
-        Console.WriteLine("Pressing " + keyCode);
         if (Input.GetKey(keyCode))
         {
             var frameMovement = CalculateMovement(direction);
             _rigidbody.AddForce(frameMovement, ForceMode2D.Impulse);
+        }
+    }
+
+    private void CheckForShoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            CmdSpawnBall();
         }
     }
     
