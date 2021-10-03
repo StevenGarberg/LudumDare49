@@ -18,11 +18,8 @@ namespace LudumDare49.API.Services
         {
             try
             {
-                if (useOwnerId)
-                {
-                    return await _playerRepository.GetByOwnerIdAsync(id);
-                }
-                
+                if (useOwnerId) return await _playerRepository.GetByOwnerIdAsync(id);
+
                 return await _playerRepository.GetByIdAsync(id);
             }
             catch (Exception e)
@@ -39,22 +36,16 @@ namespace LudumDare49.API.Services
                 {
                     var playerToUpdate = await _playerRepository.GetByIdAsync(request.Id);
 
-                    if (playerToUpdate != null)
-                    {
-                       return await _playerRepository.UpdateAsync(request);
-                    }
+                    if (playerToUpdate != null) return await _playerRepository.UpdateAsync(request);
                 }
                 else if (request?.OwnerId != null)
                 {
                     var playerToUpdate = await _playerRepository.GetByOwnerIdAsync(request.OwnerId);
-                    
-                    if (playerToUpdate != null)
-                    {
-                        return await _playerRepository.UpdateAsync(request);
-                    }
+
+                    if (playerToUpdate != null) return await _playerRepository.UpdateAsync(request);
                 }
                 
-                return await _playerRepository.CreateAsync(request);
+                return request?.OwnerId != null ? await _playerRepository.CreateAsync(request) : null;
             }
             catch (Exception e)
             {
@@ -74,7 +65,7 @@ namespace LudumDare49.API.Services
                 else
                 {
                     var playerToDelete = await _playerRepository.GetByIdAsync(id);
-                    await _playerRepository.DeleteAsync(playerToDelete);   
+                    await _playerRepository.DeleteAsync(playerToDelete);
                 }
             }
             catch (Exception e)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LudumDare49.API.Database;
 using LudumDare49.API.Models;
@@ -21,12 +22,17 @@ namespace LudumDare49.API.Repositories
             return await _context.Players
                 .FirstOrDefaultAsync(u => u.Id.ToLower() == id);
         }
-        
+
         public async Task<Player> GetByOwnerIdAsync(string ownerId)
         {
             ownerId = ownerId.ToLower();
             return await _context.Players
                 .FirstOrDefaultAsync(u => u.OwnerId.ToLower() == ownerId);
+        }
+        
+        public async Task<IEnumerable<Player>> GetAsync()
+        {
+            return await _context.Players.ToListAsync();
         }
 
         public async Task<Player> CreateAsync(Player player)
@@ -40,7 +46,7 @@ namespace LudumDare49.API.Repositories
             await _context.SaveChangesAsync();
             return entityEntry.Entity;
         }
-    
+
         public async Task<Player> UpdateAsync(Player player)
         {
             try
@@ -50,6 +56,7 @@ namespace LudumDare49.API.Repositories
                 {
                     //throw new ConflictException(storedResource.Version, user.Version);
                 }
+
                 player.UpdatedAt = DateTime.UtcNow;
                 player.Version += 1;
                 _context.Players.Update(player);
@@ -62,7 +69,7 @@ namespace LudumDare49.API.Repositories
                 throw ex;
             }
         }
-        
+
         public async Task DeleteAsync(Player player)
         {
             try
