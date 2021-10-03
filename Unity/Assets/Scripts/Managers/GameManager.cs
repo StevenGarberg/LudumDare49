@@ -1,25 +1,28 @@
 ﻿using Mirror;
 using UnityEngine;
 
-public class GameManager : NetworkBehaviour
+namespace Managers
 {
-    public static GameManager Instance;
-    
-    public bool Turn;
-
-    [Header("Prefabs")]
-    public GameObject BallPrefab;
-
-    private void Awake()
+    public class GameManager : NetworkBehaviour
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(this);
-    }
+        public static GameManager Instance;
     
-    private void OnServerInitialized()
-    {
-        if (!isServer) return;
+        public bool Turn;
+
+        [Header("Prefabs")]
+        public GameObject BallPrefab;
+
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(this);
+        }
+    
+        private void OnServerInitialized()
+        {
+            if (!isServer) return;
+        }
     }
 }

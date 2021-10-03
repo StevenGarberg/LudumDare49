@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace.Models
+﻿namespace Models
 {
     public class PlayerData
     {

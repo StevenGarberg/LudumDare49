@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿public static class Constants
 {
     public static class Constants
     {

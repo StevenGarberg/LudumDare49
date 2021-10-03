@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace DefaultNamespace.Extensions
+namespace Extensions
 {
     public static class StringExtensions
     {
