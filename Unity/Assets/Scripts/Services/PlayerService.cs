@@ -1,9 +1,10 @@
-﻿using Clients;
-using Models;
+﻿using LudumDare49.Unity.Clients;
+using LudumDare49.Unity.Models;
+using LudumDare49.Unity.Utilities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Services
+namespace LudumDare49.Unity.Services
 {
     public static class PlayerService
     {

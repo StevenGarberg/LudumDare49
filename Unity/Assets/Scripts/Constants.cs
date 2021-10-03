@@ -1,4 +1,4 @@
-﻿public static class Constants
+﻿namespace LudumDare49.Unity
 {
     public static class Constants
     {

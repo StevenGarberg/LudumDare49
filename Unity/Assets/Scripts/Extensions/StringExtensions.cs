@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Extensions
+namespace LudumDare49.Unity.Extensions
 {
     public static class StringExtensions
     {

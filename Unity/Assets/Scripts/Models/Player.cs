@@ -1,8 +1,8 @@
 ﻿using System;
-using Extensions;
+using LudumDare49.Unity.Extensions;
 using UnityEngine;
 
-namespace Models
+namespace LudumDare49.Unity.Models
 {
     public class Player
     {

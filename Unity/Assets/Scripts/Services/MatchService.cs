@@ -1,7 +1,7 @@
-﻿using Clients;
-using Models;
+﻿using LudumDare49.Unity.Clients;
+using LudumDare49.Unity.Models;
 
-namespace Services
+namespace LudumDare49.Unity.Services
 {
     public static class MatchService
     {

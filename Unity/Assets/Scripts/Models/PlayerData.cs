@@ -1,4 +1,4 @@
-﻿namespace Models
+﻿namespace LudumDare49.Unity.Models
 {
     public class PlayerData
     {

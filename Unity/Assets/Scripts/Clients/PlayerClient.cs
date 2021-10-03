@@ -1,11 +1,11 @@
 ﻿using System;
-using Extensions;
-using Models;
+using LudumDare49.Unity.Extensions;
+using LudumDare49.Unity.Models;
 using Newtonsoft.Json;
 using Proyecto26;
 using UnityEngine;
 
-namespace Clients
+namespace LudumDare49.Unity.Clients
 {
     public static class PlayerClient
     {

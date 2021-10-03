@@ -1,7 +1,7 @@
 ﻿using Mirror;
 using UnityEngine;
 
-namespace Managers
+namespace LudumDare49.Unity.Managers
 {
     public class GameManager : NetworkBehaviour
     {
