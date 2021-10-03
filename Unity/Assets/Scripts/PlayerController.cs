@@ -1,6 +1,8 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : NetworkBehaviour
 {
     [SerializeField]
@@ -9,6 +11,9 @@ public class PlayerController : NetworkBehaviour
     [Header("Components")]
     [SerializeField]
     private SpriteRenderer _bodySpriteRenderer;
+
+    [SerializeField]
+    private Rigidbody2D _rigidbody;
     
     [Header("SyncVars")]
     [SyncVar(hook = nameof(OnColorChanged))]
@@ -19,6 +24,8 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
         
+        CheckForMovement(KeyCode.Space, Vector3.up);
+        CheckForMovement(KeyCode.W, Vector3.forward);
         CheckForMovement(KeyCode.D, Vector3.right);
         CheckForMovement(KeyCode.A, Vector3.left);
     }
@@ -49,10 +56,11 @@ public class PlayerController : NetworkBehaviour
     
     private void CheckForMovement(KeyCode keyCode, Vector3 direction)
     {
+        Console.WriteLine("Pressing " + keyCode);
         if (Input.GetKey(keyCode))
         {
             var frameMovement = CalculateMovement(direction);
-            transform.Translate(frameMovement);
+            _rigidbody.AddForce(frameMovement, ForceMode2D.Impulse);
         }
     }
     
