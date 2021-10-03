@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LudumDare49.API.Database;
-using LudumDare49.API.Models;
 using LudumDare49.API.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,20 +17,13 @@ namespace LudumDare49.API.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<MatchResults>> GetByWinnerIdAsync(string winnerId)
+        public async Task<IEnumerable<MatchResults>> GetByIdAsync(string id)
         {
-            winnerId = winnerId.ToLower();
+            id = id.ToLower();
             return await _context.MatchResults
-                .Where(u => u.WinnerId.ToLower() == winnerId).ToListAsync();
+                .Where(u => u.WinnerId.ToLower() == id || u.LoserId.ToLower() == id).ToListAsync();
         }
-        
-        public async Task<IEnumerable<MatchResults>> GetByLoserIdAsync(string loserId)
-        {
-            loserId = loserId.ToLower();
-            return await _context.MatchResults
-                .Where(u => u.LoserId.ToLower() == loserId).ToListAsync();
-        }
-        
+
         public async Task<IEnumerable<MatchResults>> GetAsync()
         {
             return await _context.MatchResults.ToListAsync();

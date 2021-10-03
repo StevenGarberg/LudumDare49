@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LudumDare49.API.Models;
 using LudumDare49.API.Models.Requests;
+using LudumDare49.API.Models.Responses;
 using LudumDare49.API.Repositories;
 
 namespace LudumDare49.API.Services
@@ -16,11 +16,12 @@ namespace LudumDare49.API.Services
             _matchResultsRepository = matchResultsRepository;
         }
         
-        public async Task<IEnumerable<MatchResults>> GetByWinnerIdAsync(string id)
+        public async Task<PlayerMatchResultResponse> GetById(string id)
         {
             try
             {
-                return await _matchResultsRepository.GetByWinnerIdAsync(id);
+                var totalResults = await _matchResultsRepository.GetByIdAsync(id);
+                return new PlayerMatchResultResponse(id, totalResults);
             }
             catch (Exception e)
             {
@@ -29,11 +30,11 @@ namespace LudumDare49.API.Services
             }
         }
         
-        public async Task<IEnumerable<MatchResults>> GetByLoserIdAsync(string id)
+        public async Task<IEnumerable<MatchResults>> Get()
         {
             try
             {
-                return await _matchResultsRepository.GetByLoserIdAsync(id);
+                return await _matchResultsRepository.GetAsync();
             }
             catch (Exception e)
             {
