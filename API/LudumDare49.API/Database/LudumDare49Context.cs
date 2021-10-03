@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using LudumDare49.API.Models;
+using LudumDare49.API.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -22,8 +23,12 @@ namespace LudumDare49.API.Database
                 .HasConversion(
                     v => JsonConvert.SerializeObject(v),
                     v => JsonConvert.DeserializeObject<PlayerData>(v));
+
+            modelBuilder
+                .Entity<MatchResults>();
         }
 
         public DbSet<Player> Players { get; set; }
+        public DbSet<MatchResults> MatchResults { get; set; }
     }
 }
