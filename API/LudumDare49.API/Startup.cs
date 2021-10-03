@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LudumDare49.API.Database;
 using LudumDare49.API.Models;
 using LudumDare49.API.Repositories;
+using LudumDare49.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,8 @@ namespace LudumDare49.API
                 options.UseNpgsql(Configuration.GetConnectionString("Database")));
 
             services.AddScoped<PlayerRepository>();
+            
+            services.AddScoped<PlayerService>();
             
             services.AddControllers();
             services.AddSwaggerGen(c =>
