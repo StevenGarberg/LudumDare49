@@ -24,7 +24,7 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        var color = ColorRandomizer.GetRandomColor();
+        var color = ColorRandomizer.GetRandomPresetColor();
         CmdSetupPlayer(color);
     }
 
