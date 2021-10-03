@@ -9,6 +9,8 @@ namespace LudumDare49.Unity.Behaviours
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : NetworkBehaviour
     {
+        [SerializeField] private Camera _camera;
+        
         [SerializeField]
         private float _speed = 10.0f;
 
@@ -24,14 +26,19 @@ namespace LudumDare49.Unity.Behaviours
         public Color BodyColor = Color.white;
     
         #region Client Callbacks
+
+        private void Start()
+        {
+            if (isClient)
+                _camera = Camera.main;
+        }
+
         private void Update()
         {
             if (!isLocalPlayer) return;
-        
-            CheckForMovement(KeyCode.Space, Vector3.up);
-            CheckForMovement(KeyCode.W, Vector3.forward);
-            CheckForMovement(KeyCode.D, Vector3.right);
-            CheckForMovement(KeyCode.A, Vector3.left);
+            
+            CheckForMovement(KeyCode.D, Vector2.right);
+            CheckForMovement(KeyCode.A, Vector2.left);
             CheckForShoot();
         }
         #endregion
@@ -55,10 +62,12 @@ namespace LudumDare49.Unity.Behaviours
         }
 
         [Command]
-        public void CmdSpawnBall()
+        public void CmdSpawnBall(Vector2 shootDirection)
         {
-            GameObject go = Instantiate(GameManager.Instance.BallPrefab);
+            Vector2 position = transform.position;
+            GameObject go = Instantiate(GameManager.Instance.BallPrefab, position + (shootDirection.normalized), Quaternion.identity);
             NetworkServer.Spawn(go);
+            go.GetComponent<Rigidbody2D>().AddForce(CalculateMovement(shootDirection * 10), ForceMode2D.Impulse);
         }
         #endregion
     
@@ -72,7 +81,7 @@ namespace LudumDare49.Unity.Behaviours
         }
         #endregion
     
-        private void CheckForMovement(KeyCode keyCode, Vector3 direction)
+        private void CheckForMovement(KeyCode keyCode, Vector2 direction)
         {
             if (Input.GetKey(keyCode))
             {
@@ -85,11 +94,14 @@ namespace LudumDare49.Unity.Behaviours
         {
             if (Input.GetMouseButtonDown(0))
             {
-                CmdSpawnBall();
+                var shootDirection = Input.mousePosition;
+                shootDirection = _camera.ScreenToWorldPoint(shootDirection);
+                shootDirection -= transform.position;
+                CmdSpawnBall(shootDirection);
             }
         }
     
-        private Vector3 CalculateMovement(Vector3 direction)
+        private Vector3 CalculateMovement(Vector2 direction)
         {
             return direction * (_speed * Time.deltaTime);
         }

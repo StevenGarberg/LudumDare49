@@ -1,4 +1,7 @@
-﻿using Mirror;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using Mirror;
 using UnityEngine;
 
 namespace LudumDare49.Unity.Managers
@@ -19,10 +22,28 @@ namespace LudumDare49.Unity.Managers
             else
                 Destroy(this);
         }
-    
+
+        private void Start()
+        {
+            if (isServer)
+            {
+                StartCoroutine(GameLoopRoutine());
+            }
+        }
+
         private void OnServerInitialized()
         {
             if (!isServer) return;
+        }
+
+        private IEnumerator GameLoopRoutine()
+        {
+            while (NetworkServer.connections.Count(x => x.Value != null) < 2)
+            {
+                yield return new WaitForSeconds(1);
+            }
+            
+            Debug.Log("Game is beginning");
         }
     }
 }
