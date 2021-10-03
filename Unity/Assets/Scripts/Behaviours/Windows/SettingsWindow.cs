@@ -19,7 +19,17 @@ namespace LudumDare49.Unity.Behaviours.Windows
             {
                 _displayNameInputField.text = player.Data.DisplayName;
                 _favoriteColorInputField.text = player.Data.FavoriteColor;
+                TryAssignColor(player.Data.FavoriteColor);
             });
+
+            _favoriteColorInputField.onValueChanged.AddListener(TryAssignColor);
+        }
+
+        private void TryAssignColor(string value)
+        {
+            _favoriteColorInputField.image.color = ColorUtility.TryParseHtmlString(value, out var color)
+                ? color
+                : Color.white;
         }
     }
 }

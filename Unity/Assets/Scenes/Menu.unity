@@ -783,7 +783,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: i.e. 0000FF
+  m_Text: i.e. #0000FF or blue
 --- !u!222 &168149376
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2314,13 +2314,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1020243130}
-  m_RootOrder: 4
+  m_Father: {fileID: 1295185079}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -175.5}
-  m_SizeDelta: {x: -70, y: -13}
+  m_AnchoredPosition: {x: 0, y: 2}
+  m_SizeDelta: {x: -20, y: -8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &567452318
 MonoBehaviour:
@@ -4134,7 +4134,7 @@ RectTransform:
   m_Children:
   - {fileID: 813882359}
   m_Father: {fileID: 1020243130}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -4268,7 +4268,6 @@ RectTransform:
   - {fileID: 782660106}
   - {fileID: 1632878069}
   - {fileID: 1295185079}
-  - {fileID: 567452317}
   - {fileID: 993784279}
   m_Father: {fileID: 1526680481}
   m_RootOrder: 2
@@ -4325,7 +4324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1124906180}
   m_Layer: 5
-  m_Name: Main Meun
+  m_Name: Main Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5032,6 +5031,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1890513229}
+  - {fileID: 567452317}
   m_Father: {fileID: 1020243130}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6901,8 +6901,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchoredPosition: {x: 0, y: 2}
+  m_SizeDelta: {x: -20, y: -8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1800091233
 MonoBehaviour:
@@ -6953,7 +6953,9 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Steven Garberg
 
-    Chris Plummer'
+    Chris Plummer
+
+    John Brooks'
 --- !u!222 &1800091235
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7482,6 +7484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b143d49424404a4db1c37b7fefcdc9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonsGroup: {fileID: 131416556}
   _connectingText: {fileID: 1544394810}
   _closeButton: {fileID: 226305396}
   _networkManager: {fileID: 1453974172}

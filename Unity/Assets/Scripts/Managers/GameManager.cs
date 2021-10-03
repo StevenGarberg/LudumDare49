@@ -38,12 +38,27 @@ namespace LudumDare49.Unity.Managers
 
         private IEnumerator GameLoopRoutine()
         {
-            while (NetworkServer.connections.Count(x => x.Value != null) < 2)
+            while (true)
             {
-                yield return new WaitForSeconds(1);
-            }
+                while (GetCurrentPlayerCount() < 2)
+                {
+                    yield return new WaitForSeconds(1);
+                }
             
-            Debug.Log("Game is beginning");
+                Debug.Log("Game is beginning");
+                while (GetCurrentPlayerCount() == 2)
+                {
+                    // TODO: Game is in session
+                    yield return new WaitForSeconds(1);
+                }
+                
+                // TODO: Break down game
+            }
+        }
+
+        private int GetCurrentPlayerCount()
+        {
+            return NetworkServer.connections.Count(x => x.Value != null);
         }
     }
 }

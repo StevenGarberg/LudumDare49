@@ -1,4 +1,5 @@
 using System.Collections;
+using LudumDare49.Unity.Services;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ namespace LudumDare49.Unity.Behaviours.Windows
     public class WaitingWindow : MonoBehaviour
     {
         [Header("Components")]
+        [SerializeField]
+        private GameObject _buttonsGroup;
+        
         [SerializeField]
         private Text _connectingText;
         
@@ -30,6 +34,7 @@ namespace LudumDare49.Unity.Behaviours.Windows
 
         private void OnEnable()
         {
+            _buttonsGroup.SetActive(false);
             _animateConnectingTextRoutine = StartCoroutine(AnimateConnectingTextRoutine());
             StartCoroutine(StartClientRoutine());
 
@@ -37,6 +42,7 @@ namespace LudumDare49.Unity.Behaviours.Windows
 
         private void OnDisable()
         {
+            _buttonsGroup.SetActive(true);
             StopCoroutine(_animateConnectingTextRoutine);
         }
         #endregion
@@ -45,7 +51,10 @@ namespace LudumDare49.Unity.Behaviours.Windows
         private IEnumerator StartClientRoutine()
         {
             yield return new WaitForSeconds(3f);
-            _networkManager.StartClient();
+            PlayerService.Fetch(player =>
+            {
+                _networkManager.StartClient();
+            });
         }
         
         private IEnumerator AnimateConnectingTextRoutine()

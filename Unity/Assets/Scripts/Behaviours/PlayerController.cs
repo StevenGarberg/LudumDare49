@@ -1,4 +1,5 @@
-﻿using LudumDare49.Unity.Managers;
+﻿using System;
+using LudumDare49.Unity.Managers;
 using LudumDare49.Unity.Services;
 using LudumDare49.Unity.Utilities;
 using Mirror;
@@ -20,8 +21,14 @@ namespace LudumDare49.Unity.Behaviours
 
         [SerializeField]
         private Rigidbody2D _rigidbody;
-    
+
         [Header("SyncVars")]
+        [SyncVar(hook = nameof(OnIdChanged))]
+        public string Id = Guid.Empty.ToString();
+        
+        [SyncVar(hook = nameof(OnNameChanged))]
+        public string DisplayName = "Player";
+        
         [SyncVar(hook = nameof(OnColorChanged))]
         public Color BodyColor = Color.white;
     
@@ -46,18 +53,21 @@ namespace LudumDare49.Unity.Behaviours
         #region Server Callbacks
         public override void OnStartLocalPlayer()
         {
-            var color = ColorUtility.TryParseHtmlString(PlayerService.Player.Data.FavoriteColor, out var parsedColor)
+            var player = PlayerService.Player;
+            var color = ColorUtility.TryParseHtmlString(player.Data.FavoriteColor, out var parsedColor)
                 ? parsedColor
                 : ColorRandomizer.GetRandomPresetColor();
 
-            CmdSetupPlayer(color);
+            CmdSetupPlayer(player.Id, player.Data.DisplayName, color);
         }
         #endregion
 
         #region Commands
         [Command]
-        public void CmdSetupPlayer(Color color)
+        public void CmdSetupPlayer(string id, string displayName, Color color)
         {
+            Id = id;
+            DisplayName = displayName;
             BodyColor = color;
         }
 
@@ -75,6 +85,16 @@ namespace LudumDare49.Unity.Behaviours
         #endregion
     
         #region SyncVar Callbacks
+        private void OnIdChanged(string _Old, string _New)
+        {
+            
+        }
+        
+        private void OnNameChanged(string _Old, string _New)
+        {
+   ;
+        }
+        
         private void OnColorChanged(Color _Old, Color _New)
         {
             _bodySpriteRenderer.color = _New;
