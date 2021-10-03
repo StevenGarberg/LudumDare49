@@ -8,3 +8,13 @@ CREATE TABLE IF NOT EXISTS "Players" (
     CONSTRAINT PK_Players PRIMARY KEY ("Id")
 );
 CREATE UNIQUE INDEX IF NOT EXISTS IDX_Players_OwnerId ON "Players" USING btree ("OwnerId");
+
+CREATE TABLE IF NOT EXISTS "MatchResults" (
+    "Id" BIGINT GENERATED ALWAYS AS IDENTITY,
+    "WinnerId" TEXT NOT NULL,
+    "LoserId" TEXT NOT NULL,
+    "CreatedAt" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    CONSTRAINT PK_Players PRIMARY KEY ("Id")
+);
+CREATE UNIQUE INDEX IF NOT EXISTS IDX_Results_WinnerId ON "Results" USING btree ("WinnerId");
+CREATE UNIQUE INDEX IF NOT EXISTS IDX_Results_LoserId ON "Results" USING btree ("LoserId");
