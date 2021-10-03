@@ -19,6 +19,8 @@ namespace LudumDare49.Unity.Models
         {
             OwnerId = SystemInfo.deviceUniqueIdentifier.ToBase64String();
             Version = 1;
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = CreatedAt;
             Data = data;
         }
     }

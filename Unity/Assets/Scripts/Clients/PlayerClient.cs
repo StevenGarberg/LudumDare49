@@ -53,5 +53,27 @@ namespace LudumDare49.Unity.Clients
                     Debug.Log($"Could not fetch the player.{Environment.NewLine}{error.Message}");
                 });
         }
+
+        public static void UpdateSettings(string ownerId, PlayerSettings settings)
+        {
+            var json = JsonConvert.SerializeObject(settings, Formatting.Indented);
+            Debug.Log(json);
+        
+            var url = $"{Constants.ApiUrl}/players/{ownerId}/settings?useOwnerId=true";
+            Debug.Log(url);
+        
+            RestClient.Put(url, json)
+                .Then(response =>
+                {
+                    Debug.Log("Request successful");
+                    var deserializedPlayer = JsonConvert.DeserializeObject<Player>(response.Text);
+                })
+                .Catch(error =>
+                {
+                    Debug.Log("Request failed");
+                    Debug.Log(error?.InnerException?.Message ?? "");
+                    Debug.Log($"Could not save the player.{Environment.NewLine}{error.Message}");
+                });
+        }
     }
 }
