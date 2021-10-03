@@ -35,6 +35,13 @@ namespace LudumDare49.API.Controllers
         {
             return Ok(await _playerService.UpsertAsync(request));
         }
+        
+        [Route("{id}/settings")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateSettings([FromRoute] string id, [FromBody] PlayerSettings request, [FromQuery] bool useOwnerId = false)
+        {
+            return Ok(await _playerService.UpdateSettings(id, request, useOwnerId));
+        }
 
         [Route("{id}")]
         [HttpDelete]

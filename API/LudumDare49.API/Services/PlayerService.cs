@@ -19,9 +19,7 @@ namespace LudumDare49.API.Services
         {
             try
             {
-                if (useOwnerId) return await _playerRepository.GetByOwnerIdAsync(id);
-
-                return await _playerRepository.GetByIdAsync(id);
+                return useOwnerId ?  await _playerRepository.GetByOwnerIdAsync(id) : await _playerRepository.GetByIdAsync(id);
             }
             catch (Exception e)
             {
@@ -62,10 +60,35 @@ namespace LudumDare49.API.Services
                 
                 var ownerIdCheck = await _playerRepository.GetByOwnerIdAsync(request.OwnerId);
 
-                if (ownerIdCheck == null) return await _playerRepository.CreateAsync(request);
+                if (ownerIdCheck == null)
+                {
+                    request.Data ??= new PlayerData();
+                    return await _playerRepository.CreateAsync(request);
+                }
                 
                 ownerIdCheck.Data = request.Data;
                 return await _playerRepository.UpdateAsync(ownerIdCheck);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        
+        public async Task<Player> UpdateSettings(string id, PlayerSettings request, bool userOwnerId = false)
+        {
+            try
+            {
+                var playerToUpdate = userOwnerId
+                    ? await _playerRepository.GetByOwnerIdAsync(id)
+                    : await _playerRepository.GetByIdAsync(id);
+
+                playerToUpdate.Data.DisplayName = request.DisplayName;
+                playerToUpdate.Data.FavoriteColor = request.FavoriteColor;
+                
+                return await _playerRepository.UpdateAsync(playerToUpdate);
 
             }
             catch (Exception e)
@@ -79,16 +102,9 @@ namespace LudumDare49.API.Services
         {
             try
             {
-                if (useOwnerId)
-                {
-                    var playerToDelete = await _playerRepository.GetByOwnerIdAsync(id);
-                    await _playerRepository.DeleteAsync(playerToDelete);
-                }
-                else
-                {
-                    var playerToDelete = await _playerRepository.GetByIdAsync(id);
-                    await _playerRepository.DeleteAsync(playerToDelete);
-                }
+                var playerToDelete = useOwnerId ? await _playerRepository.GetByOwnerIdAsync(id) : await _playerRepository.GetByIdAsync(id);
+                if (playerToDelete == null) return;
+                await _playerRepository.DeleteAsync(playerToDelete);
             }
             catch (Exception e)
             {
