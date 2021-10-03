@@ -19,7 +19,12 @@ namespace LudumDare49.API.Services
         {
             try
             {
-                return useOwnerId ?  await _playerRepository.GetByOwnerIdAsync(id) : await _playerRepository.GetByIdAsync(id);
+                var player = useOwnerId ?  await _playerRepository.GetByOwnerIdAsync(id) : await _playerRepository.GetByIdAsync(id);
+                return player ?? await _playerRepository.CreateAsync(new Player
+                {
+                    OwnerId = id,
+                    Data = new PlayerData()
+                });
             }
             catch (Exception e)
             {
