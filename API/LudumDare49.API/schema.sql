@@ -16,5 +16,5 @@ CREATE TABLE IF NOT EXISTS "MatchResults" (
     "CreatedAt" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     CONSTRAINT PK_Players PRIMARY KEY ("Id")
 );
-CREATE UNIQUE INDEX IF NOT EXISTS IDX_Results_WinnerId ON "Results" USING btree ("WinnerId");
-CREATE UNIQUE INDEX IF NOT EXISTS IDX_Results_LoserId ON "Results" USING btree ("LoserId");
+CREATE UNIQUE INDEX IF NOT EXISTS IDX_Results_WinnerId ON "MatchResults" USING btree ("WinnerId");
+CREATE UNIQUE INDEX IF NOT EXISTS IDX_Results_LoserId ON "MatchResults" USING btree ("LoserId");
