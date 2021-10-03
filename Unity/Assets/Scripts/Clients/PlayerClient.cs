@@ -9,11 +9,9 @@ namespace Clients
 {
     public static class PlayerClient
     {
-        public static Player Player { get; set; } = new Player(new PlayerData());
-
-        public static void Save()
+        public static void Save(Player player, Action<Player> successCallback)
         {
-            var json = JsonConvert.SerializeObject(Player, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(player, Formatting.Indented);
             Debug.Log(json);
         
             var url = $"{Constants.ApiUrl}/players";
@@ -23,7 +21,8 @@ namespace Clients
                 .Then(response =>
                 {
                     Debug.Log("Request successful");
-                    Player = JsonConvert.DeserializeObject<Player>(response.Text);
+                    var deserializedPlayer = JsonConvert.DeserializeObject<Player>(response.Text);
+                    successCallback(deserializedPlayer);
                 })
                 .Catch(error =>
                 {
@@ -33,7 +32,7 @@ namespace Clients
                 });
         }
 
-        public static void Fetch()
+        public static void Fetch(Action<Player> successCallback)
         {
             var encodedDeviceId = SystemInfo.deviceUniqueIdentifier.ToBase64String();
             var url = $"{Constants.ApiUrl}/players/{encodedDeviceId}?useOwnerId=true";
@@ -43,8 +42,9 @@ namespace Clients
                 .Then(response =>
                 {
                     Debug.Log("Request successful");
-                    Player = JsonConvert.DeserializeObject<Player>(response.Text);
-                    Debug.Log(JsonConvert.SerializeObject(Player, Formatting.Indented));
+                    var deserializedPlayer = JsonConvert.DeserializeObject<Player>(response.Text);
+                    successCallback(deserializedPlayer);
+                    Debug.Log(JsonConvert.SerializeObject(deserializedPlayer, Formatting.Indented));
                 })
                 .Catch(error =>
                 {

@@ -15,12 +15,18 @@ namespace Services
             Player.Data.DisplayName = $"Player {Random.Range(1, 1000)}";
             Player.Data.FavoriteColor = ColorUtility.ToHtmlStringRGB(ColorRandomizer.GetRandomPresetColor());
         
-            PlayerClient.Save();
+            PlayerClient.Save(Player, player =>
+            {
+                Player = player;
+            });
         }
 
         public static void Fetch()
         {
-            PlayerClient.Fetch();
+            PlayerClient.Fetch(player =>
+            {
+                Player = player;
+            });
         }
     }
 }
