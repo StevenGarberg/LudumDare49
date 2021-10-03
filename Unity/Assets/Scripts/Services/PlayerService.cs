@@ -11,10 +11,11 @@ public static class PlayerService
 
     public static void Save()
     {
+        var json = JsonConvert.SerializeObject(Player, Formatting.Indented);
         Debug.Log(JsonConvert.SerializeObject(Player, Formatting.Indented));
         Debug.Log(Constants.ApiUrl + "/players");
         
-        RestClient.Put<Player>(Constants.ApiUrl + "/players", Player)
+        RestClient.Put<Player>(Constants.ApiUrl + "/players", json)
             .Then(response =>
             {
                 Debug.Log("Request successful");
