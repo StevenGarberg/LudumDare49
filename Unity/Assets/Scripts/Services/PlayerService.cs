@@ -15,11 +15,11 @@ public static class PlayerService
         Debug.Log(JsonConvert.SerializeObject(Player, Formatting.Indented));
         Debug.Log(Constants.ApiUrl + "/players");
         
-        RestClient.Put<Player>(Constants.ApiUrl + "/players", json)
+        RestClient.Put(Constants.ApiUrl + "/players", json)
             .Then(response =>
             {
                 Debug.Log("Request successful");
-                Player = response;
+                Player = JsonConvert.DeserializeObject<Player>(response.Text);
             })
             .Catch(error =>
             {
