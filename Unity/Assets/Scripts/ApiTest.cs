@@ -6,4 +6,9 @@ public class ApiTest : MonoBehaviour
     {
         PlayerService.Save();
     }
+
+    public void Fetch()
+    {
+        PlayerService.Fetch();
+    }
 }
