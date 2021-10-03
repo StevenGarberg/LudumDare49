@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using LudumDare49.API.Models.Requests;
 using LudumDare49.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,22 +18,19 @@ namespace LudumDare49.API.Controllers
             _playerService = playerService;
         }
         
-        [Route("results/{winnerId}/wins")]
-        [HttpGet]
-        public async Task<IActionResult> GetWins([FromRoute]string winnerId)
+        [HttpGet("results/{playerId}")]
+        public async Task<IActionResult> Get([FromRoute] string playerId)
         {
-            return Ok(await _matchResultsService.GetByWinnerIdAsync(winnerId));
+            return Ok(await _matchResultsService.GetById(playerId));
         }
         
-        [Route("results/{loserId}/losses")]
-        [HttpGet]
-        public async Task<IActionResult> GetLosses(string loserId)
+        [HttpGet("results")]
+        public async Task<IActionResult> Get()
         {
-            return Ok(await _matchResultsService.GetByLoserIdAsync(loserId));
+            return Ok(await _matchResultsService.Get());
         }
         
-        [Route("results")]
-        [HttpPost]
+        [HttpPost("results")]
         public async Task<IActionResult> CreateResults(MatchResults results)
         {
             var winner = await _playerService.GetByIdAsync(results.WinnerId);

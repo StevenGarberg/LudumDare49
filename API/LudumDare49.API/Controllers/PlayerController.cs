@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using LudumDare49.API.Models;
 using LudumDare49.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +15,8 @@ namespace LudumDare49.API.Controllers
         {
             _playerService = playerService;
         }
-
-        [Route("{id}")]
-        [HttpGet]
+        
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] string id, [FromQuery] bool useOwnerId = false)
         {
            return Ok(await _playerService.GetByIdAsync(id, useOwnerId));
@@ -36,15 +34,13 @@ namespace LudumDare49.API.Controllers
             return Ok(await _playerService.UpsertAsync(request));
         }
         
-        [Route("{id}/settings")]
-        [HttpPut]
+        [HttpPut("{id}/settings")]
         public async Task<IActionResult> UpdateSettings([FromRoute] string id, [FromBody] PlayerSettings request, [FromQuery] bool useOwnerId = false)
         {
             return Ok(await _playerService.UpdateSettings(id, request, useOwnerId));
         }
-
-        [Route("{id}")]
-        [HttpDelete]
+        
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] string id, [FromQuery] bool useOwnerId = false)
         {
             await _playerService.Delete(id, useOwnerId);
