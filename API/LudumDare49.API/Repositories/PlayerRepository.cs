@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LudumDare49.API.Database;
 using LudumDare49.API.Models;
@@ -22,6 +23,18 @@ namespace LudumDare49.API.Repositories
                 .FirstOrDefaultAsync(u => u.Id.ToLower() == id);
         }
 
+        public async Task<Player> GetByOwnerIdAsync(string ownerId)
+        {
+            ownerId = ownerId.ToLower();
+            return await _context.Players
+                .FirstOrDefaultAsync(u => u.OwnerId.ToLower() == ownerId);
+        }
+        
+        public async Task<IEnumerable<Player>> GetAsync()
+        {
+            return await _context.Players.ToListAsync();
+        }
+
         public async Task<Player> CreateAsync(Player player)
         {
             var timestamp = DateTime.UtcNow;
@@ -33,21 +46,36 @@ namespace LudumDare49.API.Repositories
             await _context.SaveChangesAsync();
             return entityEntry.Entity;
         }
-    
+
         public async Task<Player> UpdateAsync(Player player)
         {
             try
             {
-                var storedResource = await _context.Players.FindAsync(player.Id);
+                /*var storedResource = await _context.Players.FindAsync(player.Id);
                 if (player.Version != storedResource.Version)
                 {
                     //throw new ConflictException(storedResource.Version, user.Version);
-                }
+                }*/
+
                 player.UpdatedAt = DateTime.UtcNow;
                 player.Version += 1;
                 _context.Players.Update(player);
                 await _context.SaveChangesAsync();
                 return player;
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                //throw new ConflictException(ex.Message);
+                throw ex;
+            }
+        }
+
+        public async Task DeleteAsync(Player player)
+        {
+            try
+            {
+                _context.Players.Remove(player);
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException ex)
             {
