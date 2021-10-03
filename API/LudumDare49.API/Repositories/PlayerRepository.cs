@@ -55,5 +55,19 @@ namespace LudumDare49.API.Repositories
                 throw ex;
             }
         }
+        
+        public async Task DeleteAsync(Player player)
+        {
+            try
+            {
+                _context.Players.Remove(player);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                //throw new ConflictException(ex.Message);
+                throw ex;
+            }
+        }
     }
 }
