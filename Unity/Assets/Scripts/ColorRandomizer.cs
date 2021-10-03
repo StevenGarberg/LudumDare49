@@ -2,7 +2,7 @@
 
 public static class ColorRandomizer
 {
-    public static Color GetRandomColor()
+    public static Color GetRandomPresetColor()
     {
         var colors = new[]
         {
