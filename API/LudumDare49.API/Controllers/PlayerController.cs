@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LudumDare49.API.Controllers
 {
     [ApiController]
-    [Route("player")]
+    [Route("players")]
     public class PlayerController : ControllerBase
     {
         [Route("{id}")]
@@ -25,6 +25,13 @@ namespace LudumDare49.API.Controllers
     
         [HttpPut]
         public async Task<IActionResult> Upsert([FromBody] Player request)
+        {
+            throw new NotImplementedException();
+        }
+        
+        [Route("{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromRoute] string id, [FromQuery] bool useOwnerId = false)
         {
             throw new NotImplementedException();
         }
