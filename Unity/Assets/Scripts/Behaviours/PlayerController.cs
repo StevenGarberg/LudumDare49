@@ -75,13 +75,19 @@ namespace LudumDare49.Unity.Behaviours
         public void CmdSpawnBall(Vector2 shootDirection)
         {
             Vector2 position = transform.position;
+            RpcPlayThrowSound();
             GameObject go = Instantiate(GameManager.Instance.BallPrefab, position + (shootDirection.normalized), Quaternion.identity);
             NetworkServer.Spawn(go);
             go.GetComponent<Rigidbody2D>().AddForce(CalculateMovement(shootDirection * 10), ForceMode2D.Impulse);
         }
         #endregion
-    
+
         #region Client RPC
+        [ClientRpc]
+        public void RpcPlayThrowSound()
+        {
+            AudioManager.Instance.Play("shoot");
+        }
         #endregion
     
         #region SyncVar Callbacks
