@@ -2,6 +2,7 @@
 Game jam project for Ludum Dare 49 - "Unstable".
 
 ## Links
+- [WebGL Player](https://ludumdare49.z13.web.core.windows.net/)
 - [API Documentation](https://ludumdare49.azurewebsites.net/)
 - [Ludum Dare 49](https://ldjam.com/events/ludum-dare/49)
 
