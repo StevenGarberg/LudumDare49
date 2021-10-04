@@ -1,4 +1,3 @@
-using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,9 +12,6 @@ namespace LudumDare49.Unity.Behaviours.Buttons
 
         [SerializeField]
         private GameObject _waitingWindow;
-        
-        [SerializeField]
-        private NetworkManager _networkManager;
         
         private void Awake()
         {

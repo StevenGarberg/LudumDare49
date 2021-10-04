@@ -9,7 +9,7 @@ namespace LudumDare49.Unity.Managers
     public class GameManager : NetworkBehaviour
     {
         public static GameManager Instance;
-    
+
         public bool Turn;
 
         [Header("Prefabs")]
@@ -53,6 +53,7 @@ namespace LudumDare49.Unity.Managers
                 }
                 
                 // TODO: Break down game
+                NetworkManager.singleton.ServerChangeScene(NetworkManager.singleton.onlineScene);
             }
         }
 

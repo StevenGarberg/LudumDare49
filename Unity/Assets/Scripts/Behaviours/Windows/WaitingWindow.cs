@@ -17,9 +17,6 @@ namespace LudumDare49.Unity.Behaviours.Windows
         
         [SerializeField]
         private Button _closeButton;
-        
-        [SerializeField]
-        private NetworkManager _networkManager;
 
         private Coroutine _animateConnectingTextRoutine;
         
@@ -28,7 +25,7 @@ namespace LudumDare49.Unity.Behaviours.Windows
         {
             _closeButton.onClick.AddListener(() =>
             {
-                _networkManager.StopClient();
+                NetworkManager.singleton.StopClient();
             });
         }
 
@@ -50,17 +47,15 @@ namespace LudumDare49.Unity.Behaviours.Windows
         #region Coroutines
         private IEnumerator StartClientRoutine()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
             PlayerService.Fetch(player =>
             {
-                _networkManager.StartClient();
+                NetworkManager.singleton.StartClient();
             });
         }
         
         private IEnumerator AnimateConnectingTextRoutine()
         {
-            yield return new WaitForSeconds(1);
-            
             while (true)
             {
                 for (var i = 0; i < 4; i++)
