@@ -1,0 +1,37 @@
+@page "/matches"
+@using LudumDare49.Dashboard.Repositories
+@using LudumDare49.API.Models
+@using LudumDare49.API.Models.Requests
+
+@inject MatchResultsRepository MatchResultsRepository
+@inject NavigationManager NavigationManager
+
+<h1>Matches</h1>
+
+@if (matchResults != null)
+{
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                AllowPaging="true" PageSize="20" AllowSorting="true" Data="@matchResults" TItem="MatchResults">
+        <Columns>
+            <RadzenGridColumn TItem="MatchResults" Property="Id" Title="Id" Sortable="false" />
+            <RadzenGridColumn TItem="MatchResults" Property="WinnerId" Title="Winner" />
+            <RadzenGridColumn TItem="MatchResults" Property="LoserId" Title="Loser" />
+            <RadzenGridColumn TItem="MatchResults" Property="CreatedAt" Title="Played On" />
+        </Columns>
+    </RadzenGrid>
+}
+else
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+
+@code {
+    private List<MatchResults> matchResults;
+
+    protected override async Task OnInitializedAsync()
+    {
+        matchResults = await MatchResultsRepository.Get();
+    }
+}

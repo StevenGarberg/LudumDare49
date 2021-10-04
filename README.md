@@ -2,17 +2,20 @@
 Game jam project for Ludum Dare 49 - "Unstable".
 
 ## Links
+- [WebGL Player](https://ludumdare49.z13.web.core.windows.net/)
 - [API Documentation](https://ludumdare49.azurewebsites.net/)
 - [Ludum Dare 49](https://ldjam.com/events/ludum-dare/49)
 
 ## Members
-- [@StevenGarberg](https://github.com/StevenGarberg) | Project Organizer
-- [@christopherplummer](https://github.com/christopherplummer) | API Developer
-- [@reevest2](https://github.com/reevest2) | Game Developer
-- [@takhomasac](https://github.com/takhomasac) | Game Designer
-- [@johnbrooks92](https://github.com/johnbrooks92) | Game Developer
-- [@jortothedan](https://github.com/jortothedan) | Game Developer
-- [@TeaffJ](https://github.com/TeaffJ) | Game Developer
+- [@StevenGarberg](https://github.com/StevenGarberg) | Front-end Development & Graphics
+- [@christopherplummer](https://github.com/christopherplummer) | Back-end Development
+- [@johnbrooks92](https://github.com/johnbrooks92) | Audio
+
+### Supporters
+- [@reevest2](https://github.com/reevest2)
+- [@takhomasac](https://github.com/takhomasac)
+- [@jortothedan](https://github.com/jortothedan)
+- [@TeaffJ](https://github.com/TeaffJ)
 
 ---
 
@@ -32,6 +35,7 @@ Game jam project for Ludum Dare 49 - "Unstable".
 - Mirror | [Asset Store](https://assetstore.unity.com/packages/tools/network/mirror-129321) | [GitHub](https://github.com/vis2k/Mirror)
 - RestClient | [Asset Store](https://assetstore.unity.com/packages/tools/network/rest-client-for-unity-102501) | [GitHub](https://github.com/proyecto26/RestClient)
 - JSON .NET For Unity | [Asset Store](https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347)
+- Turbo Switch Pro | [Asset Store](https://assetstore.unity.com/packages/tools/utilities/turbo-switch-pro-60040)
 
 ---
 
